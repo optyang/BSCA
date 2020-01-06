@@ -144,19 +144,19 @@ end
 
 figure;
 hold on; box on; grid on;
-semilogy(0: 1: alg1_sca10_e.MaxIter_outer,  mean(alg1_sca10_e.objval,1),  'DisplayName', alg1_sca10_e.legend)
-semilogy(0: 1: alg2_sca1_e.MaxIter_outer,   mean(alg2_sca1_e.objval,1),   'DisplayName', alg2_sca1_e.legend)
-semilogy(0: 1: alg2_sca1_s.MaxIter_outer,   mean(alg2_sca1_s.objval,1),   'DisplayName', alg2_sca1_s.legend)
-semilogy(0: 1: alg2_sca10_e.MaxIter_outer,  mean(alg2_sca10_e.objval,1),  'DisplayName', alg2_sca10_e.legend)
-semilogy(0: 1: alg2_sca10_s.MaxIter_outer,  mean(alg2_sca10_s.objval,1),  'DisplayName', alg2_sca10_s.legend)
-semilogy(0: 1: alg2_gra_e.MaxIter_outer,    mean(alg2_gra_e.objval,1),    'DisplayName', alg2_gra_e.legend)
-semilogy(0: 1: alg2_gra_s.MaxIter_outer,    mean(alg2_gra_s.objval,1),    'DisplayName', alg2_gra_s.legend)
-semilogy(0: 1: alg10_sca1_e.MaxIter_outer,  mean(alg10_sca1_e.objval,1),  'DisplayName', alg10_sca1_e.legend)
+semilogy(0: 1: alg1_sca10_e.MaxIter_outer,  mean(alg1_sca10_e.objval, 1), 'DisplayName', alg1_sca10_e.legend)
+semilogy(0: 1: alg2_sca1_e.MaxIter_outer,   mean(alg2_sca1_e.objval,  1), 'DisplayName', alg2_sca1_e.legend)
+semilogy(0: 1: alg2_sca1_s.MaxIter_outer,   mean(alg2_sca1_s.objval,  1), 'DisplayName', alg2_sca1_s.legend)
+semilogy(0: 1: alg2_sca10_e.MaxIter_outer,  mean(alg2_sca10_e.objval, 1), 'DisplayName', alg2_sca10_e.legend)
+semilogy(0: 1: alg2_sca10_s.MaxIter_outer,  mean(alg2_sca10_s.objval, 1), 'DisplayName', alg2_sca10_s.legend)
+semilogy(0: 1: alg2_gra_e.MaxIter_outer,    mean(alg2_gra_e.objval,   1), 'DisplayName', alg2_gra_e.legend)
+semilogy(0: 1: alg2_gra_s.MaxIter_outer,    mean(alg2_gra_s.objval,   1), 'DisplayName', alg2_gra_s.legend)
+semilogy(0: 1: alg10_sca1_e.MaxIter_outer,  mean(alg10_sca1_e.objval, 1), 'DisplayName', alg10_sca1_e.legend)
 semilogy(0: 1: alg10_sca10_e.MaxIter_outer, mean(alg10_sca10_e.objval,1), 'DisplayName', alg10_sca10_e.legend)
-semilogy(0: 1: alg10_gra_e.MaxIter_outer,   mean(alg10_gra_e.objval,1),   'DisplayName', alg10_gra_e.legend)
-semilogy(0: 1: alg10_gra_s.MaxIter_outer,   mean(alg10_gra_s.objval,1),   'DisplayName', alg10_gra_s.legend)
-semilogy(0: 1: alg_descent1.MaxIter_outer,  mean(alg_descent1.objval,1),  'DisplayName', alg_descent1.legend)
-semilogy(0: 1: alg_descent2.MaxIter_outer,  mean(alg_descent2.objval,1),  'DisplayName', alg_descent2.legend)
+semilogy(0: 1: alg10_gra_e.MaxIter_outer,   mean(alg10_gra_e.objval,  1), 'DisplayName', alg10_gra_e.legend)
+semilogy(0: 1: alg10_gra_s.MaxIter_outer,   mean(alg10_gra_s.objval,  1), 'DisplayName', alg10_gra_s.legend)
+semilogy(0: 1: alg_descent1.MaxIter_outer,  mean(alg_descent1.objval, 1), 'DisplayName', alg_descent1.legend)
+semilogy(0: 1: alg_descent2.MaxIter_outer,  mean(alg_descent2.objval, 1), 'DisplayName', alg_descent2.legend)
 xlabel('number of iterations');
 ylabel('objective value');
 legend('show');
