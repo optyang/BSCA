@@ -7,26 +7,26 @@ set(groot, 'DefaultLineLineWidth', 1.5);
 %parameters
 N = 5000;
 K = 20000;  % A: N*K
-density = 0.01;
+density = 0.01; % the proportion of nonzero elements in the sparse vector
 MaxIter_outer_sca = 30; % maximum number of iterations
 MaxIter_outer_gra = 100; % maximum number of iterations
 MaxIter_outer_dec = 1000; % maximum number of iterations
 
 Sample = 20; % number of repeatitions in the Monte Carlo simulations
-plotSignal = 0;
+plotSignal = 0; % plot the estimated signal if 1
 
 % algDefaultSetting(algType, stepsizeType, numBlocks, MaxIter_outer, MaxIter_inner, Sample)
-alg_descent1  = algDefaultSetting('dec', 'n/a',        1,  MaxIter_outer_dec, 1,  Sample);
+alg_descent1  = algDefaultSetting('dec', 'n/a',        1,  MaxIter_outer_dec, 1,  Sample); % "_descent" or "_dec" refers to the Bregman-based proximal gradient algorithm
 alg_descent2  = algDefaultSetting('dec', 'n/a',        1,  MaxIter_outer_dec, 1,  Sample);
 
-alg1_sca10_e  = algDefaultSetting('sca', 'exact',      1,  MaxIter_outer_sca, 10, Sample);
+alg1_sca10_e  = algDefaultSetting('sca', 'exact',      1,  MaxIter_outer_sca, 10, Sample); % "_sca" refers to the partial linear approximation
 
 alg2_sca1_e   = algDefaultSetting('sca', 'exact',      2,  MaxIter_outer_sca, 1,  Sample);
 alg2_sca1_s   = algDefaultSetting('sca', 'successive', 2,  MaxIter_outer_sca, 1,  Sample);
 alg2_sca10_e  = algDefaultSetting('sca', 'exact',      2,  MaxIter_outer_sca, 10, Sample);
 alg2_sca10_s  = algDefaultSetting('sca', 'successive', 2,  MaxIter_outer_sca, 10, Sample);
 
-alg2_gra_e    = algDefaultSetting('gra', 'exact',      2,  MaxIter_outer_gra, 1,  Sample);
+alg2_gra_e    = algDefaultSetting('gra', 'exact',      2,  MaxIter_outer_gra, 1,  Sample); % "_gra" refers to the quadratic approximation
 alg2_gra_s    = algDefaultSetting('gra', 'successive', 2,  MaxIter_outer_gra, 1,  Sample);
 
 alg10_sca1_e  = algDefaultSetting('sca', 'exact',      10, MaxIter_outer_sca, 1,  Sample);
@@ -36,10 +36,10 @@ alg10_gra_e   = algDefaultSetting('gra', 'exact',      10, MaxIter_outer_gra, 1,
 alg10_gra_s   = algDefaultSetting('gra', 'successive', 10, MaxIter_outer_gra, 1,  Sample); 
 
 for s = 1: 1: Sample
-    disp(['Sample ' num2str(s)]);
+    disp(['Sample ' num2str(s) ' of ' num2str(Sample)]);
     
     % generating the parameters
-    [A, y, mu, x_ori]=FUN_QI_parameter(N, K, density);
+    [A, y, mu, x_ori] = FUN_QI_parameter(N, K, density);
     
     % initialization
     x0 = randn(K,1);
@@ -139,7 +139,7 @@ for s = 1: 1: Sample
     
     clear A x0 x_ori y mu
     
-    save('BlockQI_tmp');
+%    save('BlockQI_tmp');
 end
 
 figure;
@@ -148,35 +148,35 @@ xlabel('number of iterations');
 ylabel('objective value');
 legend('show');
 set(gca,'yscale','log')
-semilogy(0: 1:  alg1_sca10_e.MaxIter_outer, mean(alg1_sca10_e.objval,1),'DisplayName', alg1_sca10_e.legend)
-semilogy(0: 1:  alg2_sca1_e.MaxIter_outer,  mean(alg2_sca1_e.objval,1),'DisplayName',  alg2_sca1_e.legend)
-semilogy(0: 1:  alg2_sca1_s.MaxIter_outer,  mean(alg2_sca1_s.objval,1),'DisplayName',  alg2_sca1_s.legend)
-semilogy(0: 1:  alg2_sca10_e.MaxIter_outer, mean(alg2_sca10_e.objval,1),'DisplayName', alg2_sca10_e.legend)
-semilogy(0: 1:  alg2_sca10_s.MaxIter_outer, mean(alg2_sca10_s.objval,1),'DisplayName', alg2_sca10_s.legend)
-semilogy(0: 1:  alg2_gra_e.MaxIter_outer,   mean(alg2_gra_e.objval,1),'DisplayName',   alg2_gra_e.legend)
-semilogy(0: 1:  alg2_gra_s.MaxIter_outer,   mean(alg2_gra_s.objval,1),'DisplayName',   alg2_gra_s.legend)
-semilogy(0: 1: alg10_sca1_e.MaxIter_outer,  mean(alg10_sca1_e.objval,1),'DisplayName', alg10_sca1_e.legend)
-semilogy(0: 1: alg10_sca10_e.MaxIter_outer, mean(alg10_sca10_e.objval,1),'DisplayName',alg10_sca10_e.legend)
-semilogy(0: 1: alg10_gra_e.MaxIter_outer,   mean(alg10_gra_e.objval,1),'DisplayName',  alg10_gra_e.legend)
-semilogy(0: 1: alg10_gra_s.MaxIter_outer,   mean(alg10_gra_s.objval,1),'DisplayName',  alg10_gra_s.legend)
-semilogy(0: 1: alg_descent1.MaxIter_outer,   mean(alg_descent1.objval,1),'DisplayName',  alg_descent1.legend)
-semilogy(0: 1: alg_descent2.MaxIter_outer,   mean(alg_descent2.objval,1),'DisplayName',  alg_descent2.legend)
+semilogy(0: 1: alg1_sca10_e.MaxIter_outer,  mean(alg1_sca10_e.objval,1),'DisplayName',  alg1_sca10_e.legend)
+semilogy(0: 1: alg2_sca1_e.MaxIter_outer,   mean(alg2_sca1_e.objval,1),'DisplayName',   alg2_sca1_e.legend)
+semilogy(0: 1: alg2_sca1_s.MaxIter_outer,   mean(alg2_sca1_s.objval,1),'DisplayName',   alg2_sca1_s.legend)
+semilogy(0: 1: alg2_sca10_e.MaxIter_outer,  mean(alg2_sca10_e.objval,1),'DisplayName',  alg2_sca10_e.legend)
+semilogy(0: 1: alg2_sca10_s.MaxIter_outer,  mean(alg2_sca10_s.objval,1),'DisplayName',  alg2_sca10_s.legend)
+semilogy(0: 1: alg2_gra_e.MaxIter_outer,    mean(alg2_gra_e.objval,1),'DisplayName',    alg2_gra_e.legend)
+semilogy(0: 1: alg2_gra_s.MaxIter_outer,    mean(alg2_gra_s.objval,1),'DisplayName',    alg2_gra_s.legend)
+semilogy(0: 1: alg10_sca1_e.MaxIter_outer,  mean(alg10_sca1_e.objval,1),'DisplayName',  alg10_sca1_e.legend)
+semilogy(0: 1: alg10_sca10_e.MaxIter_outer, mean(alg10_sca10_e.objval,1),'DisplayName', alg10_sca10_e.legend)
+semilogy(0: 1: alg10_gra_e.MaxIter_outer,   mean(alg10_gra_e.objval,1),'DisplayName',   alg10_gra_e.legend)
+semilogy(0: 1: alg10_gra_s.MaxIter_outer,   mean(alg10_gra_s.objval,1),'DisplayName',   alg10_gra_s.legend)
+semilogy(0: 1: alg_descent1.MaxIter_outer,  mean(alg_descent1.objval,1),'DisplayName',  alg_descent1.legend)
+semilogy(0: 1: alg_descent2.MaxIter_outer,  mean(alg_descent2.objval,1),'DisplayName',  alg_descent2.legend)
 
 figure;
 hold on; box on; grid on;
-semilogy(mean( alg1_sca10_e.cputime,1), mean( alg1_sca10_e.objval,1),'DisplayName',  alg1_sca10_e.legend)
-semilogy(mean( alg2_sca1_e.cputime, 1), mean( alg2_sca1_e.objval, 1),'DisplayName',  alg2_sca1_e.legend)
-semilogy(mean( alg2_sca1_s.cputime, 1), mean( alg2_sca1_s.objval, 1),'DisplayName',  alg2_sca1_s.legend)
-semilogy(mean( alg2_sca10_e.cputime,1), mean( alg2_sca10_e.objval,1),'DisplayName',  alg2_sca10_e.legend)
-semilogy(mean( alg2_sca10_s.cputime,1), mean( alg2_sca10_s.objval,1),'DisplayName',  alg2_sca10_s.legend)
-semilogy(mean( alg2_gra_e.cputime,  1), mean( alg2_gra_e.objval,  1),'DisplayName',  alg2_gra_e.legend)
-semilogy(mean( alg2_gra_s.cputime,  1), mean( alg2_gra_s.objval,  1),'DisplayName',  alg2_gra_s.legend)
-semilogy(mean(alg10_sca1_e.cputime, 1), mean(alg10_sca1_e.objval, 1),'DisplayName', alg10_sca1_e.legend)
-semilogy(mean(alg10_sca10_e.cputime,1), mean(alg10_sca10_e.objval,1),'DisplayName', alg10_sca10_e.legend)
-semilogy(mean(alg10_gra_e.cputime,  1), mean(alg10_gra_e.objval,  1),'DisplayName', alg10_gra_e.legend)
-semilogy(mean(alg10_gra_s.cputime,  1), mean(alg10_gra_s.objval,  1),'DisplayName', alg10_gra_s.legend)
-semilogy(mean(alg_descent1.cputime,  1), mean(alg_descent1.objval,1),  'DisplayName', alg_descent1.legend)
-semilogy(mean(alg_descent2.cputime,  1), mean(alg_descent2.objval,1),  'DisplayName', alg_descent2.legend)
+semilogy(mean(alg1_sca10_e.cputime,1),  mean( alg1_sca10_e.objval,1), 'DisplayName', alg1_sca10_e.legend)
+semilogy(mean(alg2_sca1_e.cputime, 1),  mean( alg2_sca1_e.objval, 1), 'DisplayName', alg2_sca1_e.legend)
+semilogy(mean(alg2_sca1_s.cputime, 1),  mean( alg2_sca1_s.objval, 1), 'DisplayName', alg2_sca1_s.legend)
+semilogy(mean(alg2_sca10_e.cputime,1),  mean( alg2_sca10_e.objval,1), 'DisplayName', alg2_sca10_e.legend)
+semilogy(mean(alg2_sca10_s.cputime,1),  mean( alg2_sca10_s.objval,1), 'DisplayName', alg2_sca10_s.legend)
+semilogy(mean(alg2_gra_e.cputime,  1),  mean( alg2_gra_e.objval,  1), 'DisplayName', alg2_gra_e.legend)
+semilogy(mean(alg2_gra_s.cputime,  1),  mean( alg2_gra_s.objval,  1), 'DisplayName', alg2_gra_s.legend)
+semilogy(mean(alg10_sca1_e.cputime, 1), mean(alg10_sca1_e.objval, 1), 'DisplayName', alg10_sca1_e.legend)
+semilogy(mean(alg10_sca10_e.cputime,1), mean(alg10_sca10_e.objval,1), 'DisplayName', alg10_sca10_e.legend)
+semilogy(mean(alg10_gra_e.cputime,  1), mean(alg10_gra_e.objval,  1), 'DisplayName', alg10_gra_e.legend)
+semilogy(mean(alg10_gra_s.cputime,  1), mean(alg10_gra_s.objval,  1), 'DisplayName', alg10_gra_s.legend)
+semilogy(mean(alg_descent1.cputime, 1), mean(alg_descent1.objval, 1), 'DisplayName', alg_descent1.legend)
+semilogy(mean(alg_descent2.cputime, 1), mean(alg_descent2.objval, 1), 'DisplayName', alg_descent2.legend)
 xlabel('CPU time');
 ylabel('objective value');
 legend('show');
